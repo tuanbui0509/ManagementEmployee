@@ -28,5 +28,34 @@ namespace WebAPI.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, dt);
         }
+        public string Post(Employee e)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                //INSERT INTO dbo.Employees
+                string query = @"
+                                  INSERT INTO  dbo.Employees ( EmployeeName ,
+                                  Department ,
+                                  MailID ,
+                                  DOJ
+                                ) VALUES  ( '" + e.EmployeeName + @"','"
+                          + e.Department + @"','" + e.MailID + @"',' " + e.DOJ + @"'";
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
+                using (var cmd = new SqlCommand(query, con))
+                using (var da = new SqlDataAdapter(cmd))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    da.Fill(dt);
+                }
+                return "Thêm thành công";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Loi nang: "+ex);
+                return "Thêm thất bại";
+            }
+        }
     }
 }
+
