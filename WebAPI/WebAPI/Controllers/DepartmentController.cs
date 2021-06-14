@@ -51,5 +51,47 @@ namespace WebAPI.Controllers
             }
         }
 
+        public string Put(Department dep)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                string query = @"UPDATE dbo.Departments SET DepartmentName = '" + dep.DepartmentName + @"' WHERE DepartmentID = '" + dep.DepartmentID + @"'";
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
+                using (var cmd = new SqlCommand(query, con))
+                using (var da = new SqlDataAdapter(cmd))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    da.Fill(dt);
+                }
+                return "Sửa thành công";
+            }
+            catch (Exception)
+            {
+                return "Sửa thất bại?";
+            }
+        }
+
+        public string Delete(int id)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                string query = @"DELETE dbo.Departments WHERE DepartmentID = '" + id + @"'";
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
+                using (var cmd = new SqlCommand(query, con))
+                using (var da = new SqlDataAdapter(cmd))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    da.Fill(dt);
+                }
+                return "Xóa thành công";
+            }
+            catch (Exception)
+            {
+                return "Xóa thất bại?";
+            }
+
+        }
     }
 }
