@@ -39,8 +39,9 @@ namespace WebAPI.Controllers
                                   Department ,
                                   MailID ,
                                   DOJ
-                                ) VALUES  ( '" + e.EmployeeName + @"','"
-                          + e.Department + @"','" + e.MailID + @"',' " + e.DOJ + @"')";
+                                )
+                                VALUES  ( '" + e.EmployeeName + @"','"
+                                + e.Department + @"','" + e.MailID + @"',' " + e.DOJ + @"')";
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
