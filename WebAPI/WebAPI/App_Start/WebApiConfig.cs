@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 namespace WebAPI
 {
     public static class WebApiConfig
@@ -21,6 +22,7 @@ namespace WebAPI
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
                 new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
+            config.EnableCors(new EnableCorsAttribute("http://localhost:3000", "*", "*"));
         }
     }
 }
